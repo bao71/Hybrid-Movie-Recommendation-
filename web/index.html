@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinérecom - Personalized Cinema</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="app">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-icon">🎬</div>
+                <h1>CINÉRECOM</h1>
+                <p>Personalized Cinema</p>
+            </div>
+
+            <div class="screen active" id="screen-choose">
+                <p class="section-title">Bạn là ai?</p>
+                <div class="btn-group">
+                    <button class="btn-type" id="btn-old" onclick="selectType('old')">
+                        <span class="icon">🎭</span>Người dùng cũ
+                    </button>
+                    <button class="btn-type" id="btn-new" onclick="selectType('new')">
+                        <span class="icon">✨</span>Người dùng mới
+                    </button>
+                </div>
+                <div id="old-form" style="display:none">
+                    <label>User ID của bạn</label>
+                    <input type="number" id="user-id-input" placeholder="VD: 1, 42, 100..." min="1" max="6040" oninput="updateContinueBtn()"/>
+                    <p class="error" id="id-error">ID không hợp lệ (1 – 6040)</p>
+                </div>
+                <button class="btn-main" id="btn-continue" onclick="handleContinue()" disabled>Tiếp tục</button>
+            </div>
+
+            <div class="screen" id="screen-genres">
+                <div class="onboarding-note">
+                    <strong>Chào mừng!</strong> Chọn ít nhất 3 thể loại yêu thích để hệ thống gợi ý phim phù hợp nhất với bạn.
+                </div>
+                <p class="section-title">Thể loại yêu thích</p>
+                <div class="genre-grid" id="genre-grid"></div>
+                <p class="selected-count">Đã chọn: <span id="count-display">0</span> / 18</p>
+                <p class="error" id="genre-error" style="text-align:center">Vui lòng chọn ít nhất 3 thể loại</p>
+                <button class="btn-main" onclick="handleGenreContinue()">Khám phá phim ngay</button>
+            </div>
+
+            <div class="screen" id="screen-dash">
+                <div class="dash-header">
+                    <div class="avatar" id="dash-avatar">U</div>
+                    <div>
+                        <h2 id="dash-name">Người dùng</h2>
+                        <p id="dash-sub">Personalized recommendations</p>
+                    </div>
+                </div>
+                <div id="genres-display-wrap" style="display:none">
+                    <p class="section-label">Sở thích của bạn</p>
+                    <div class="genres-display" id="genres-display"></div>
+                </div>
+                <p class="section-label" id="rec-label">Gợi ý cho bạn</p>
+                <div class="movie-row" id="movie-row"></div>
+                <div class="divider"></div>
+                <p class="section-label">Đang thịnh hành</p>
+                <div class="movie-row" id="trending-row"></div>
+                <button class="back-btn" onclick="goBack()">← Đăng xuất</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
