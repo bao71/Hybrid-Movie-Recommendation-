@@ -25,5 +25,5 @@ def load_ratings():
 
 
 def load_model():
-    with open("data/svd_model.pkl", "rb") as f:
+    with open("data/svd_model2.pkl", "rb") as f:
         return pickle.load(f)

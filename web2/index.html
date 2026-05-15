@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinérecom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       LANDING PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-landing" class="page active">
+    <div class="landing-bg">
+      <div class="bg-film-strip"></div>
+      <div class="bg-overlay"></div>
+    </div>
+    <nav class="landing-nav">
+      <div class="logo-mark">🎬 <span>CINÉRECOM</span></div>
+      <div class="nav-actions">
+       
+        <button class="btn-primary-sm" onclick="showPage('page-register'); return false;">Bắt đầu</button>
+      </div>
+    </nav>
+    <div class="landing-hero">
+      <p class="hero-eyebrow">Trải nghiệm điện ảnh cá nhân hoá</p>
+      <h1 class="hero-title">Phim dành <em>riêng</em><br>cho bạn.</h1>
+      <p class="hero-sub">Hệ thống AI phân tích gu xem phim và đề xuất những bộ phim bạn chưa biết mình yêu thích.</p>
+      <div class="hero-cta">
+        <button class="btn-primary-lg" onclick="showPage('page-register'); return false;">Tạo tài khoản miễn phí</button>
+        <button class="btn-outline-lg" onclick="showPage('page-login'); return false;">Đăng nhập</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>6,000+</span>Người dùng</div>
+        <div class="stat-div"></div>
+        <div class="stat"><span>10K+</span>Bộ phim</div>
+        <div class="stat-div"></div>
+      
+      </div>
+    </div>
+    <!-- Preview row of "movie cards" -->
+   
+  </div>
+
+  <!-- ══════════════════════════════════════
+       LOGIN PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-login" class="page">
+    <div class="auth-bg">
+      <div class="auth-bg-blur b1"></div>
+      <div class="auth-bg-blur b2"></div>
+    </div>
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('page-landing'); return false;">🎬 <span>CINÉRECOM</span></div>
+        <h2 class="auth-title">Chào mừng trở lại</h2>
+        <p class="auth-sub">Đăng nhập để xem gợi ý phim dành riêng cho bạn</p>
+
+        <div class="form-tabs">
+          <button class="tab active" id="tab-id" onclick="switchLoginTab('id')">Dùng User ID</button>
+          <button class="tab" id="tab-email" onclick="switchLoginTab('email')">Dùng Email</button>
+        </div>
+
+        <div id="login-tab-id" class="tab-content active">
+          <div class="field">
+            <label>User ID <span class="field-hint">(1 – 6040)</span></label>
+            <input type="number" id="login-userid" class="input" placeholder="Nhập ID của bạn..." min="1" max="6040" oninput="validateLoginId()">
+            <p class="field-error" id="login-id-error">ID không hợp lệ (1 – 6040)</p>
+          </div>
+          <button class="btn-primary-full" id="btn-login-id" onclick="handleOldUserLogin()" disabled>
+            <span>Đăng nhập</span><span class="btn-arrow">→</span>
+          </button>
+        </div>
+
+        <div id="login-tab-email" class="tab-content">
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="login-email" class="input" placeholder="ten@email.com">
+          </div>
+          <div class="field">
+            <label>Mật khẩu</label>
+            <input type="password" id="login-pass" class="input" placeholder="••••••••">
+          </div>
+          <div class="field-row">
+            <label class="checkbox-label"><input type="checkbox"> Ghi nhớ đăng nhập</label>
+            <a class="link-sm" href="#">Quên mật khẩu?</a>
+          </div>
+          <button class="btn-primary-full" id="btn-login-email" onclick="handleEmailLogin()">
+            <span>Đăng nhập</span><span class="btn-arrow">→</span>
+          </button>
+          <p class="field-error" id="login-email-error"></p>
+        </div>
+
+        <div class="auth-divider"><span>hoặc</span></div>
+        <p class="auth-switch">Chưa có tài khoản? <a onclick="showPage('page-register'); return false;">Đăng ký ngay</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       REGISTER PAGE
+  ══════════════════════════════════════ -->
+  <div id="page-register" class="page">
+    <div class="auth-bg">
+      <div class="auth-bg-blur b1" style="--c1:200;--c2:140"></div>
+      <div class="auth-bg-blur b2" style="--c1:280;--c2:30"></div>
+    </div>
+    <div class="auth-wrap">
+      <div class="auth-card wide">
+        <div class="auth-logo" onclick="showPage('page-landing'); return false;">🎬 <span>CINÉRECOM</span></div>
+
+        <!-- Step indicators -->
+        <div class="steps">
+          <div class="step active" id="step-dot-1"><span>1</span></div>
+          <div class="step-line" id="step-line-1"></div>
+          <div class="step" id="step-dot-2"><span>2</span></div>
+          <div class="step-line" id="step-line-2"></div>
+          <div class="step" id="step-dot-3"><span>3</span></div>
+        </div>
+        <div class="steps-labels">
+          <span>Thông tin</span><span>Sở thích</span><span>Hoàn tất</span>
+        </div>
+
+        <!-- Step 1: Info -->
+        <div id="reg-step-1" class="reg-step active">
+          <h2 class="auth-title">Tạo tài khoản</h2>
+          <p class="auth-sub">Bắt đầu hành trình điện ảnh cá nhân hoá</p>
+          <div class="field-row-2">
+            <div class="field">
+              <label>Họ</label>
+              <input type="text" class="input" id="reg-lastname" placeholder="Nguyễn">
+            </div>
+            <div class="field">
+              <label>Tên</label>
+              <input type="text" class="input" id="reg-firstname" placeholder="Văn A">
+            </div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" class="input" id="reg-email" placeholder="ten@email.com">
+          </div>
+          <div class="field">
+            <label>Mật khẩu</label>
+            <input type="password" class="input" id="reg-pass" placeholder="Ít nhất 8 ký tự">
+          </div>
+          <button class="btn-primary-full" onclick="goRegStep(2)">
+            <span>Tiếp theo</span><span class="btn-arrow">→</span>
+          </button>
+          <p class="auth-switch">Đã có tài khoản? <a onclick="showPage('page-login'); return false;">Đăng nhập</a></p>
+        </div>
+
+        <!-- Step 2: Genres -->
+        <div id="reg-step-2" class="reg-step">
+          <h2 class="auth-title">Gu điện ảnh của bạn</h2>
+          <p class="auth-sub">Chọn ít nhất 3 thể loại để hệ thống hiểu bạn hơn</p>
+          <div class="genre-grid" id="reg-genre-grid"></div>
+          <p class="genre-count">Đã chọn: <span id="reg-count">0</span> thể loại</p>
+          <p class="field-error" id="genre-reg-error" style="text-align:center">Vui lòng chọn ít nhất 3 thể loại</p>
+          <div class="step-btns">
+            <button class="btn-ghost-sm" onclick="goRegStep(1)">← Quay lại</button>
+            <button class="btn-primary-full" style="flex:1" onclick="goRegStep(3)">
+              <span>Tiếp theo</span><span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Done -->
+        <div id="reg-step-3" class="reg-step">
+          <div class="success-icon">🎬</div>
+          <h2 class="auth-title">Sẵn sàng rồi!</h2>
+          <p class="auth-sub">Tài khoản của bạn đã được tạo. Hệ thống AI đang phân tích sở thích của bạn...</p>
+          <div class="genre-tags" id="reg-genre-tags"></div>
+          <button class="btn-primary-full" onclick="handleNewUserRegister()">
+            <span>Vào xem phim ngay</span><span class="btn-arrow">🍿</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MAIN APP / DASHBOARD
+  ══════════════════════════════════════ -->
+  <div id="page-app" class="page">
+    <!-- Top Nav -->
+    <header class="app-nav">
+      <div class="app-logo">🎬 <span>CINÉRECOM</span></div>
+      <nav class="app-links">
+        <a class="nav-link active" onclick="switchTab('home')">Trang chủ</a>
+        <a class="nav-link" onclick="switchTab('browse')">Khám phá</a>
+        <a class="nav-link" onclick="switchTab('watchlist')">Danh sách</a>
+      </nav>
+      <div class="app-user">
+        <div class="search-btn" onclick="toggleSearch()">🔍</div>
+        <div class="user-avatar" id="app-avatar" onclick="toggleUserMenu()">U</div>
+        <div class="user-menu" id="user-menu">
+          <div class="user-menu-info">
+            <p id="menu-name">Người dùng</p>
+            <p id="menu-email" class="menu-email">—</p>
+          </div>
+          <div class="menu-div"></div>
+          <a onclick="switchTab('watchlist')">📋 Danh sách của tôi</a>
+          <a onclick="showPage('page-landing')">⚙️ Cài đặt</a>
+          <div class="menu-div"></div>
+          <a class="menu-logout" onclick="handleLogout()">← Đăng xuất</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search bar -->
+    <div class="search-bar-wrap" id="search-bar-wrap">
+      <input type="text" class="search-bar" placeholder="Tìm phim, diễn viên, thể loại..." oninput="handleSearch(this.value)">
+    </div>
+
+    <!-- Main content -->
+    <main class="app-main" id="app-main">
+
+      <!-- HERO BANNER (placeholder until DB) -->
+      <section class="hero-banner">
+        <div class="hero-banner-bg">
+          <div class="hero-banner-placeholder">
+            <span class="hero-poster-emoji">🎬</span>
+          </div>
+          <div class="hero-banner-overlay"></div>
+        </div>
+        <div class="hero-banner-content">
+          <div class="hero-badge">✦ GỢI Ý CHO BẠN</div>
+          <!-- TODO: Thay bằng data từ DB -->
+          <h2 class="hero-movie-title" id="hero-title">Tên Bộ Phim Nổi Bật</h2>
+          <div class="hero-movie-meta">
+            <span class="hero-rating">★ 8.5</span>
+            <span>2024</span>
+            <span>148 phút</span>
+            <span class="hero-genre-tag">Action</span>
+            <span class="hero-genre-tag">Drama</span>
+          </div>
+          <p class="hero-desc" id="hero-desc">Mô tả ngắn về bộ phim sẽ hiển thị ở đây sau khi kết nối database. Đây là nơi giới thiệu nội dung phim một cách hấp dẫn để người dùng muốn xem ngay.</p>
+          <div class="hero-actions">
+            <button class="btn-play">▶ Xem ngay</button>
+            <button class="btn-info">ℹ Thông tin</button>
+            <button class="btn-add-list">+ Danh sách</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECOMMENDED SECTION -->
+      <section class="movie-section">
+        <div class="section-header">
+          <h3 class="section-title-app">Gợi ý riêng cho bạn</h3>
+          <span class="section-view-all">Xem tất cả →</span>
+        </div>
+        <div class="movies-scroll" id="row-recommended">
+          <!-- Skeleton placeholders (sẽ thay bằng data từ API/DB) -->
+          <div class="movie-thumb skeleton" data-id="rec-1">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info">
+              <div class="skeleton-line w70"></div>
+              <div class="skeleton-line w50"></div>
+            </div>
+          </div>
+          <div class="movie-thumb skeleton" data-id="rec-2">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info">
+              <div class="skeleton-line w80"></div>
+              <div class="skeleton-line w40"></div>
+            </div>
+          </div>
+          <div class="movie-thumb skeleton" data-id="rec-3">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info">
+              <div class="skeleton-line w60"></div>
+              <div class="skeleton-line w50"></div>
+            </div>
+          </div>
+          <div class="movie-thumb skeleton" data-id="rec-4">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info">
+              <div class="skeleton-line w75"></div>
+              <div class="skeleton-line w45"></div>
+            </div>
+          </div>
+          <div class="movie-thumb skeleton" data-id="rec-5">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info">
+              <div class="skeleton-line w65"></div>
+              <div class="skeleton-line w55"></div>
+            </div>
+          </div>
+        </div>
+        <p class="loading-hint" id="rec-hint">Đang tải gợi ý từ AI...</p>
+      </section>
+
+      <!-- TRENDING SECTION -->
+      <section class="movie-section">
+        <div class="section-header">
+          <h3 class="section-title-app"> Đang thịnh hành</h3>
+          <span class="section-view-all">Xem tất cả →</span>
+        </div>
+        <div class="movies-scroll" id="row-trending">
+          <!-- Placeholder cards - sẽ được điền từ API -->
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+              <span class="thumb-emoji">💥</span>
+              <div class="thumb-rank">1</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Action · 2024</p>
+            </div>
+          </div>
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#0d1b2a,#1b2838)">
+              <span class="thumb-emoji">🚀</span>
+              <div class="thumb-rank">2</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Sci-Fi · 2024</p>
+            </div>
+          </div>
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#1a0a0a,#2d1515)">
+              <span class="thumb-emoji">😱</span>
+              <div class="thumb-rank">3</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Horror · 2023</p>
+            </div>
+          </div>
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#0a1a0a,#152d15)">
+              <span class="thumb-emoji">🔍</span>
+              <div class="thumb-rank">4</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Crime · 2024</p>
+            </div>
+          </div>
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#1a0f1a,#2d1a2d)">
+              <span class="thumb-emoji">🧙</span>
+              <div class="thumb-rank">5</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Fantasy · 2024</p>
+            </div>
+          </div>
+          <div class="movie-thumb">
+            <div class="thumb-poster" style="background:linear-gradient(135deg,#1a150a,#2d240f)">
+              <span class="thumb-emoji">🎭</span>
+              <div class="thumb-rank">6</div>
+            </div>
+            <div class="thumb-info">
+              <p class="thumb-title">Tên phim sẽ ở đây</p>
+              <p class="thumb-meta">Drama · 2023</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BY GENRE SECTION -->
+      <section class="movie-section">
+        <div class="section-header">
+          <h3 class="section-title-app"> Theo thể loại yêu thích</h3>
+        </div>
+        <div class="genre-filter-row" id="genre-filter-row">
+          <!-- Populated from user's selected genres -->
+        </div>
+        <div class="movies-scroll" id="row-by-genre">
+          <div class="movie-thumb skeleton">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info"><div class="skeleton-line w70"></div><div class="skeleton-line w50"></div></div>
+          </div>
+          <div class="movie-thumb skeleton">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info"><div class="skeleton-line w80"></div><div class="skeleton-line w40"></div></div>
+          </div>
+          <div class="movie-thumb skeleton">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info"><div class="skeleton-line w60"></div><div class="skeleton-line w55"></div></div>
+          </div>
+          <div class="movie-thumb skeleton">
+            <div class="thumb-poster skeleton-box"></div>
+            <div class="thumb-info"><div class="skeleton-line w75"></div><div class="skeleton-line w45"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW RELEASES -->
+      <section class="movie-section">
+        <div class="section-header">
+          <h3 class="section-title-app"> Mới nhất</h3>
+          <span class="section-view-all">Xem tất cả →</span>
+        </div>
+        <div class="movies-grid" id="row-new">
+          <!-- TODO: Map from API response: data.items.map(movie => movieCardHTML(movie)) -->
+          <!-- Template card structure:
+            <div class="grid-card" onclick="openMovieModal(movie)">
+              <div class="grid-poster">
+                <img src="${movie.poster_url}" alt="${movie.title}">
+                <div class="grid-overlay">
+                  <button class="play-mini">▶</button>
+                </div>
+              </div>
+              <div class="grid-info">
+                <p class="grid-title">${movie.title}</p>
+                <p class="grid-meta">${movie.genres} · ${movie.year}</p>
+                <p class="grid-score">★ ${movie.rating}</p>
+              </div>
+            </div>
+          -->
+          <div class="grid-card placeholder-card">
+            <div class="grid-poster" style="background:linear-gradient(135deg,#1a1020,#0d0820)">
+              <span style="font-size:2rem">🎬</span>
+              <div class="placeholder-label">Kết nối DB</div>
+            </div>
+            <div class="grid-info">
+              <p class="grid-title">Phim mới 1</p>
+              <p class="grid-meta">Thể loại · Năm</p>
+            </div>
+          </div>
+          <div class="grid-card placeholder-card">
+            <div class="grid-poster" style="background:linear-gradient(135deg,#0a1520,#0a1030)">
+              <span style="font-size:2rem">📽️</span>
+              <div class="placeholder-label">Kết nối DB</div>
+            </div>
+            <div class="grid-info">
+              <p class="grid-title">Phim mới 2</p>
+              <p class="grid-meta">Thể loại · Năm</p>
+            </div>
+          </div>
+          <div class="grid-card placeholder-card">
+            <div class="grid-poster" style="background:linear-gradient(135deg,#201510,#300d0d)">
+              <span style="font-size:2rem">🎥</span>
+              <div class="placeholder-label">Kết nối DB</div>
+            </div>
+            <div class="grid-info">
+              <p class="grid-title">Phim mới 3</p>
+              <p class="grid-meta">Thể loại · Năm</p>
+            </div>
+          </div>
+          <div class="grid-card placeholder-card">
+            <div class="grid-poster" style="background:linear-gradient(135deg,#0a2010,#0f2a15)">
+              <span style="font-size:2rem">🏆</span>
+              <div class="placeholder-label">Kết nối DB</div>
+            </div>
+            <div class="grid-info">
+              <p class="grid-title">Phim mới 4</p>
+              <p class="grid-meta">Thể loại · Năm</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Movie Modal (for detail view) -->
+    <div class="modal-overlay" id="movie-modal" onclick="closeModal(event)">
+      <div class="modal-card">
+        <button class="modal-close" onclick="closeMovieModal()">✕</button>
+        <div class="modal-poster">
+          <span class="modal-emoji" id="modal-emoji">🎬</span>
+        </div>
+        <div class="modal-info">
+          <h3 id="modal-title">Tên phim</h3>
+          <div class="modal-meta">
+            <span id="modal-rating">★ —</span>
+            <span id="modal-year">—</span>
+            <span id="modal-genres">—</span>
+          </div>
+          <p id="modal-desc" class="modal-desc">Mô tả phim sẽ hiển thị ở đây...</p>
+          <div class="modal-actions">
+            <button class="btn-play">▶ Xem ngay</button>
+            <button class="btn-add-list">+ Danh sách</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

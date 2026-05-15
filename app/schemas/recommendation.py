@@ -17,7 +17,7 @@ class OldUserMovieItem(BaseModel):
     title: str
     genres: str
     score: float
-
+    poster_url: str = ""
 
 class OldUserRecommendationResponse(BaseModel):
     user_id: int
@@ -28,6 +28,7 @@ class MovieItem(BaseModel):
     title: str
     genres: str
     score: float
+    poster_url: str = ""
 
 
 class RecommendationResponse(BaseModel):
