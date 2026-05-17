@@ -1,7 +1,7 @@
-*.dat
 *.csv
-*.pkl
 __pycache__/
 .ipynb_checkpoints/
 allbut.pl
-1_REPORT_PROJECT_2_NguyenQuocBao.docx
+Backend/data/
+Frontend/node_modules/
+data/
